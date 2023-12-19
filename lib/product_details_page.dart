@@ -1,12 +1,19 @@
 import "package:flutter/material.dart";
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductDetailsPage extends StatefulWidget {
   final Map<String, Object> product;
 
   const ProductDetailsPage({
     super.key,
     required this.product,
   });
+
+  @override
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  int selectedSize = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +24,11 @@ class ProductDetailsPage extends StatelessWidget {
       body: Column(
         children: [
           Text(
-            product['title'] as String,
+            widget.product['title'] as String,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const Spacer(),
-          Image.asset(product['imageUrl'] as String),
+          Image.asset(widget.product['imageUrl'] as String),
           const Spacer(
             flex: 2,
           ),
@@ -35,7 +42,7 @@ class ProductDetailsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '\$${product['price']}',
+                  '\$${widget.product['price']}',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(
@@ -44,15 +51,28 @@ class ProductDetailsPage extends StatelessWidget {
                 SizedBox(
                   height: 50,
                   child: ListView.builder(
-                    itemCount: (product['sizes'] as List<int>).length,
+                    itemCount: (widget.product['sizes'] as List<int>).length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: ((context, index) {
-                      final size = (product['sizes'] as List<int>)[index];
+                      final size =
+                          (widget.product['sizes'] as List<int>)[index];
 
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Chip(
-                          label: Text(size.toString()),
+                        child: GestureDetector(
+                          child: Chip(
+                            label: Text(
+                              size.toString(),
+                            ),
+                            backgroundColor: index == size
+                                ? Theme.of(context).colorScheme.primary
+                                : null,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedSize = size;
+                            });
+                          },
                         ),
                       );
                     }),
@@ -69,12 +89,24 @@ class ProductDetailsPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: const Text(
-                      'Add to Cart',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                      ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.shopping_cart_outlined,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Add to Cart',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 )
