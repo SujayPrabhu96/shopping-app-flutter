@@ -32,62 +32,64 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            const Row(
+            Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Shoes\nCollection',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Shoes\nCollection',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
-                Expanded(
-                    child: TextField(
-                  decoration: InputDecoration(
+                const Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
                       hintText: 'Search',
                       prefixIcon: Icon(Icons.search),
                       border: border,
                       enabledBorder: border,
-                      focusedBorder: border),
-                ))
+                      focusedBorder: border,
+                    ),
+                  ),
+                )
               ],
             ),
             SizedBox(
-                height: 120,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: filters.length,
-                  itemBuilder: (context, index) {
-                    final filter = filters[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedFilter = filter;
-                          });
-                        },
-                        child: Chip(
-                          side: const BorderSide(
-                              color: Color.fromRGBO(245, 247, 249, 1)),
-                          backgroundColor: selectedFilter == filter
-                              ? Theme.of(context).colorScheme.primary
-                              : const Color.fromRGBO(245, 247, 249, 1),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
-                          label: Text(filter),
-                          labelStyle: const TextStyle(
-                            fontSize: 16,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
+              height: 120,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: filters.length,
+                itemBuilder: (context, index) {
+                  final filter = filters[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedFilter = filter;
+                        });
+                      },
+                      child: Chip(
+                        side: const BorderSide(
+                            color: Color.fromRGBO(245, 247, 249, 1)),
+                        backgroundColor: selectedFilter == filter
+                            ? Theme.of(context).colorScheme.primary
+                            : const Color.fromRGBO(245, 247, 249, 1),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15),
+                        label: Text(filter),
+                        labelStyle: const TextStyle(
+                          fontSize: 16,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
                         ),
                       ),
-                    );
-                  },
-                )),
+                    ),
+                  );
+                },
+              ),
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: products.length,
