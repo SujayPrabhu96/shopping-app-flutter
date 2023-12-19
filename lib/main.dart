@@ -12,22 +12,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Shopping App',
-      theme: ThemeData(
-        fontFamily: 'Lato',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromRGBO(254, 206, 1, 1),
-          primary: const Color.fromRGBO(254, 206, 1, 1),
-        ),
-        inputDecorationTheme: const InputDecorationTheme(
-          hintStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-          prefixIconColor: Colors.grey
-        )
-      ),
-      home: const HomePage()
-    );
+        title: 'Shopping App',
+        theme: ThemeData(
+            fontFamily: 'Lato',
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromRGBO(254, 206, 1, 1),
+              primary: const Color.fromRGBO(254, 206, 1, 1),
+            ),
+            inputDecorationTheme: const InputDecorationTheme(
+                hintStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+                prefixIconColor: Colors.grey),
+            textTheme: const TextTheme(
+              titleMedium: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+              bodySmall: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            )),
+        home: const HomePage());
   }
 }
