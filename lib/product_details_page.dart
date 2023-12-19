@@ -64,7 +64,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             label: Text(
                               size.toString(),
                             ),
-                            backgroundColor: index == size
+                            backgroundColor: selectedSize == size
                                 ? Theme.of(context).colorScheme.primary
                                 : null,
                           ),
