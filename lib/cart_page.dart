@@ -7,7 +7,11 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /*
+    Shorthand for the below is context.watch
     final cart = Provider.of<CartProvider>(context).cart;
+    */
+    final cart = context.watch<CartProvider>().cart;
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +37,50 @@ class CartPage extends StatelessWidget {
                 Icons.delete,
                 color: Colors.red,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        'Remove from cart?',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            /*
+                            Shorthand for the below is context.read 
+                            Provider.of<CartProvider>(context, listen: false)
+                                .removeFromCart(product);
+                            */
+                            context
+                                .read<CartProvider>()
+                                .removeFromCart(product);
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            'Remove',
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
             ),
           );
         },
