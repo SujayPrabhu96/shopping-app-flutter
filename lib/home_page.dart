@@ -9,7 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Widget> pages = const [
+  List<Widget> pages = const [
     ProductList(),
     Center(
       child: Text('Cart'),
@@ -22,7 +22,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentPage],
+      body: IndexedStack(
+        index: currentPage,
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
