@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<String> filters = const ['All', 'Adidas', 'Nike', 'Bata'];
   late String selectedFilter;
+  int currentPage = 0;
 
   @override
   void initState() {
@@ -24,10 +25,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     const border = OutlineInputBorder(
-        borderSide: BorderSide(color: Color.fromRGBO(225, 225, 225, 1)),
-        borderRadius: BorderRadius.horizontal(
-          left: Radius.circular(50),
-        ));
+      borderSide: BorderSide(color: Color.fromRGBO(225, 225, 225, 1)),
+      borderRadius: BorderRadius.horizontal(
+        left: Radius.circular(50),
+      ),
+    );
 
     return Scaffold(
       body: SafeArea(
@@ -119,6 +121,24 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            currentPage = index;
+          });
+        },
+        currentIndex: currentPage,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: '',
+          ),
+        ],
       ),
     );
   }
